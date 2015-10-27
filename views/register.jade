@@ -1,0 +1,49 @@
+//
+   Created by Dave on 10/19/15.
+block content
+    .registerContent
+       md-content.registerContainer(ng-controller="RegisterController as register" layout-padding)
+          h2.headTitle WELCOME TO BEER BOARD!
+          form(name='registerForm' action="/register" method='POST')
+                md-input-container
+                   input(required name="username" id="username" placeholder="Username" ng-model='register.username')
+                   div(ng-messages='registerForm.username.$error')
+                      div(ng-messages='required') Required.
+
+                md-input-container
+                   input(type='password' required name='password' id='password' placeholder="Password" ng-model='register.password')
+                   div(ng-messages='registerForm.password.$error')
+                      div(ng-messages='required') Required.
+
+                md-input-container
+                   input(type='text' required name='barName' id='barName' placeholder="Bar Name")
+                   div(ng-messages='registerForm.barName.$error')
+                      div(ng-messages='required') Required.
+
+                .emailPhone(layout layout-sm="column")
+                   md-input-container(flex)
+                      input(type='text' required name='email' id='email' placeholder="Email")
+                      div(ng-messages='registerForm.email.$error')
+                         div(ng-messages='required') Required.
+
+                   md-input-container(flex)
+                      input(type='text' id='phoneNumber' name='phoneNumber' placeholder="Phone (555)555-5555")
+
+                md-input-container(flex)
+                   input(type='text'  name='street' placeholder="Street" id='street')
+
+                .location(layout layout-sm="column")
+                   md-input-container(flex)
+                      input(type='text'  name='city' placeholder="City" id='city')
+
+                   md-input-container(flex)
+                      input(type='text'  name='state' placeholder="Abbreviated State" id='state')
+
+                   md-input-container(flex)
+                      input(type='number' name='zipcode' placeholder="Zipcode(55555)" id='zipcode')
+
+                md-input-container(flex)
+                   input(type='text'  name='description' placeholder="Bar Description" id='description')
+
+                div
+                   md-button(ng-click="register.successMessage()") SUBMIT

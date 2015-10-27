@@ -1,0 +1,20 @@
+doctype html
+html(ng-app="beerBoardApp")
+  head
+    title= title
+    script(src='/vendor/angular/angular.min.js')
+    script(src='/vendor/angular-material/angular-material.min.js')
+    script(src='/vendor/angular-aria/angular-aria.min.js')
+    script(src='/vendor/angular-animate/angular-animate.min.js')
+    script(src='/vendor/angular-messages/angular-messages.min.js')
+    script(src='/vendor/angular-route/angular-route.min.js')
+    script(src='/vendor/xeditable.min.js')
+    script(src='/javascripts/client.js')
+    script(src='/javascripts/adminController.js')
+    script(src='/javascripts/homeController.js')
+    link(rel='stylesheet', href='/vendor/angular-material/angular-material.min.css')
+    link(rel='stylesheet', href='/vendor/font-awesome-4.4.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    base(href="/")
+  body(ng-controller='MainController as main')
+    block content

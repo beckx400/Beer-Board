@@ -1,0 +1,30 @@
+extends layout
+block content
+  .mainContent
+    .header
+      a(class="logoImg" href="/" ng-click)
+        img(src="images/Drawing.png" alt="Home")
+      md-menu(class='userMenu' ng-show="main.loginOrOut" ng-click="main.openMenu($mdOpenMenu, $event)")
+        md-button
+          i(class="fa fa-bars")
+        md-menu-content(class='userMenuContent' width="1")
+          a(class="myBar" href='/admin') My Bar
+          a(class="logLink" ng-click="main.logout()" href="/") Logout
+      md-menu
+        md-button(class="logLink" ng-hide='main.loginOrOut' ng-click="main.openMenu($mdOpenMenu, $event)") Login
+        md-menu-content.loginContent
+          form
+            div
+              label(for="username") Username:
+              input(type="text" name="username" id="username" ng-model='main.username')
+            div
+              label(for="password") Password:
+              input(type='password' name='password' id='password' ng-model='main.password')
+            div
+              md-button(ng-click='main.login()') Login
+              a(href='/register') New User?
+    .main(ng-view)
+    .footer
+      a(class="footerLink" href='/about') ABOUT
+      a(class="footerLink" href='/credits') CREDITS
+      p(id="copyright") Copyright 2015

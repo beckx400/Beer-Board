@@ -1,0 +1,41 @@
+//
+   Created by Dave on 10/17/15.
+block content
+   .homeMain(ng-controller="HomeController as home")
+      .homeContainer(ng-hide='home.showContent')
+         h1.logo BEER BOARD
+         input(type='text' ng-model='home.searchedBar' class='searchBar' placeholder='FIND A BAR')
+         md-button(class='searchSubmit' ng-click='home.findBar()') SEARCH
+      .customerList(ng-show='home.showContent')
+         h2.barName {{home.bar.barName}}
+         h4.barLocation {{home.barLocation}}
+         h3.beerListTitle ON TAP NOW
+         .customerBeer(ng-repeat='beer in home.beerList track by $index')
+            h5.beerName {{beer.brewery}} {{beer.name}}
+            p {{beer.shortStyle}}
+            img(ng-src="{{beer.image}}" ng-hide="home.expand")
+            ul
+               li(ng-show="{{beer.abv}}") <strong>ABV:</strong> {{beer.abv}}
+               li(ng-show="{{beer.ibu}}") <strong>IBU:</strong> {{beer.ibu}}
+               li(ng-hide="{{beer.rating}}") This beer hasn't been rated yet!
+               li(ng-show="{{beer.rating}}") <strong>Current Rating:</strong> {{beer.rating}}/10
+            div(class='ratingContainer' layout)
+               p(flex='20') RATE THIS BEER
+               md-slider(flex='70' min="0" max='10' ng-model='home.newRating[$index]' id='rating-slider' ng-click="home.enlarge[$index] = false")
+               input(flex class='ratingInput' placeholder='0' type='number' ng-model='home.newRating[$index]' aria-controls='rating-slider')
+            div(class='ratingButtons')
+               md-button(ng-click="home.submitRating(beer.name, $index)") SUBMIT RATING
+               md-button(ng-click="home.enlarge[$index] = !home.enlarge[$index]") MORE INFO.
+            .expandedView(ng-show="home.enlarge[$index]")
+               ul
+                  li(ng-show="{{beer.availability}}") {{beer.availability}}
+                  br
+                  li(ng-show="{{beer.description}}") {{beer.description}}
+
+
+
+
+
+
+
+

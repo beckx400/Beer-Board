@@ -1,0 +1,46 @@
+//
+   Created by Dave on 10/19/15.
+block content
+   .adminBar(ng-controller='AdminController as admin')
+      .adminBeerList
+         h2 {{admin.barName}}
+         h3 MY BEER LIST
+         .addBeer
+            input(type='text' placeholder='Add A Beer' ng-model='admin.addBeer')
+            md-button(ng-click='admin.getBeer()') SEARCH
+         .returnBeers(ng-repeat="beer in admin.beerChoice track by $index")
+            .choiceList
+               .beer
+                  ul
+                     li(ng-click="admin.addNewBeer(beer)") {{beer.breweries[0].name}} {{beer.name}}
+         .beerList(ng-repeat="beer in admin.beerList")
+            .beer
+               p {{beer.brewery}} {{beer.name}}
+               md-button(class='removeButton' ng-click="admin.deleteBeer($index)") REMOVE
+      .barInfo
+         h3 MY INFO
+         .barUpdate
+            h3(editable-text="admin.bar.barName") {{admin.bar.barName}}
+            ul
+               li(class="userInfo") Email:
+               li(editable-text="admin.bar.email") {{admin.bar.email || 'empty'}}
+               li(class="userInfo") Phone Number:
+               li(editable-text="admin.bar.phoneNumber") {{admin.bar.phoneNumber}}
+               li(class="userInfo") Street:
+               li(editable-text="admin.bar.street") {{admin.bar.street}}
+               li(class="userInfo") City:
+               li(editable-text="admin.bar.city") {{admin.bar.city}}
+               li(class="userInfo") State:
+               li(editable-text="admin.bar.state") {{admin.bar.state}}
+               li(class="userInfo") Zipcode:
+               li(editable-text="admin.bar.zipcode") {{admin.bar.zipcode}}
+               li(class="userInfo") Description:
+               li(editable-text="admin.bar.description") {{admin.bar.description}}
+            .userControls
+               md-button(ng-click="admin.submitUserChanges()") SUBMIT CHANGES
+               a(ng-click="admin.deleteUser()" href='/home') Delete My Account
+
+
+
+
+
