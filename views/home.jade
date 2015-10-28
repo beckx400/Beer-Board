@@ -4,21 +4,23 @@ block content
    .homeMain(ng-controller="HomeController as home")
       .homeContainer(ng-hide='home.showContent')
          h1.logo BEER BOARD
-         input(type='text' ng-model='home.searchedBar' class='searchBar' placeholder='FIND A BAR')
+         input(type='text' ng-model='home.searchedBar' class='searchBar awesomplete' placeholder='FIND A BAR' list='mylist')
+         datalist(id='mylist')
+            option(ng-repeat='choice in home.choices') {{choice}}
          md-button(class='searchSubmit' ng-click='home.findBar()') SEARCH
       .customerList(ng-show='home.showContent')
          h2.barName {{home.bar.barName}}
          h4.barLocation {{home.barLocation}}
-         h3.beerListTitle ON TAP NOW
+         .onTapContainer
+            h3.beerListTitle ON TAP NOW
+            md-button(class='newSearch' ng-click='home.newSearch()') NEW SEARCH
          .customerBeer(ng-repeat='beer in home.beerList track by $index')
             h5.beerName {{beer.brewery}} {{beer.name}}
-            p {{beer.shortStyle}}
-            img(ng-src="{{beer.image}}" ng-hide="home.expand")
-            ul
+            p {{beer.style}}
+            ul(class='statsList')
                li(ng-show="{{beer.abv}}") <strong>ABV:</strong> {{beer.abv}}
                li(ng-show="{{beer.ibu}}") <strong>IBU:</strong> {{beer.ibu}}
-               li(ng-hide="{{beer.rating}}") This beer hasn't been rated yet!
-               li(ng-show="{{beer.rating}}") <strong>Current Rating:</strong> {{beer.rating}}/10
+               li <strong>Current Rating:</strong> {{beer.rating}}/10
             div(class='ratingContainer' layout)
                p(flex='20') RATE THIS BEER
                md-slider(flex='70' min="0" max='10' ng-model='home.newRating[$index]' id='rating-slider' ng-click="home.enlarge[$index] = false")
@@ -27,10 +29,15 @@ block content
                md-button(ng-click="home.submitRating(beer.name, $index)") SUBMIT RATING
                md-button(ng-click="home.enlarge[$index] = !home.enlarge[$index]") MORE INFO.
             .expandedView(ng-show="home.enlarge[$index]")
+               img(ng-src="{{beer.image}}")
                ul
-                  li(ng-show="{{beer.availability}}") {{beer.availability}}
+                  li(ng-show="beer.availability") <strong>Availability:</strong> {{beer.availability}}
                   br
-                  li(ng-show="{{beer.description}}") {{beer.description}}
+                  li(ng-show='beer.srm') <strong>SRM:</strong> {{beer.srm}}
+                  br
+                  li(ng-show="beer.description") <strong>Description:</strong>
+                  br
+                  li {{beer.description}}
 
 
 

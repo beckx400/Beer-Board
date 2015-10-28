@@ -6,6 +6,8 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
     var vm = this;
     
     vm.updateInfo = false;
+    vm.customShow = false;
+    vm.addCustom = false;
     vm.beerName;
     vm.beerChoice = [];
     vm.beerList = [];
@@ -23,6 +25,7 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
 //Get beer search information and push to a list of choices
     vm.getBeer = function(){
         var beer = vm.addBeer;
+        vm.addCustom = true;
         $http.get("/beer/search/" + beer).then(function(response){
             vm.beerChoice = [];
 
@@ -35,7 +38,6 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
                     vm.beerChoice.push(response.data[i]);
                 }
             }
-            console.log(vm.beerChoice);
         vm.addBeer = '';
         });
     };
@@ -43,28 +45,23 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
 //Add a new beer to the current list and update the database
     vm.addNewBeer = function(beer){
         vm.beerChoice = [];
-
+        vm.addCustom = false;
         var newBeer = {
-            brewery: beer.breweries[0].name,
-            name:  beer.name,
+            brewery: beer.breweries[0].name.toUpperCase(),
+            name:  beer.name.toUpperCase(),
             ibu: beer.ibu,
             abv:  beer.abv,
             description:  beer.description,
             image:  undefined,
-            longStyle:  beer.style.name,
-            shortStyle:  beer.style.shortName,
-            srm: {
-                id: undefined,
-                hex: undefined
-            },
+            style:  beer.style.shortName,
+            srm: undefined,
             availability: undefined,
-            rating: 0
+            rating: 0,
+            ratingTotal: 0,
+            numOfRatings: 0
         };
         if(typeof beer.srm != 'undefined'){
-            newBeer.srm.id = beer.srm.id;
-        }
-        if(typeof beer.srm != 'undefined'){
-            newBeer.srm.hex = beer.srm.hex;
+            newBeer.srm = beer.srm.id;
         }
         if(typeof beer.available != 'undefined'){
             newBeer.availability = beer.available.name;
@@ -72,16 +69,43 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
         if(typeof beer.labels != 'undefined'){
             newBeer.image = beer.labels.large;
         }
-        console.log(newBeer);
         vm.beerList.push(newBeer);
         updateBeerList();
-    }
+    };
 
+//Display Custom beer input form
+    vm.revealCustom = function(){
+        console.log('clicked');
+        vm.customShow = true;
+    };
+
+//Add a custom beer from form
+    vm.submitCustomBeer = function(){
+        vm.customShow = false;
+        vm.addCustom = false;
+        var newBeer = {
+            brewery: vm.cusBrewery.toUpperCase(),
+            name:  vm.cusName.toUpperCase(),
+            ibu: vm.cusIbu,
+            abv:  vm.cusAbv,
+            description:  vm.cusDesc,
+            image:  vm.cusImg,
+            style:  vm.cusStyle,
+            srm: vm.cusSrm,
+            availability: vm.cusAvail,
+            rating: 0,
+            ratingTotal: 0,
+            numOfRatings: 0
+        };
+        vm.beerList.push(newBeer);
+        vm.beerChoice = [];
+        updateBeerList();
+    };
 //Remove a beer from the current list and update the database
     vm.deleteBeer = function(index){
         vm.beerList.splice(index, 1);
         updateBeerList();
-    }
+    };
 
 //Passed here to update the database
     function updateBeerList(){
@@ -92,7 +116,7 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
 //Update User's info
     vm.updateUserInfo = function(){
         vm.updateInfo = !vm.updateInfo;
-    }
+    };
 
     vm.submitUserChanges = function(){
         vm.updateInfo = false;

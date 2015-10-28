@@ -2,7 +2,7 @@ extends layout
 block content
   .mainContent
     .header
-      a(class="logoImg" href="/" ng-click)
+      a(class="logoImg" href='/')
         img(src="images/Drawing.png" alt="Home")
       md-menu(class='userMenu' ng-show="main.loginOrOut" ng-click="main.openMenu($mdOpenMenu, $event)")
         md-button

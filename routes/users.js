@@ -3,18 +3,23 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var path = require('path');
 
-
 //Bringing in models for Beer and for newUser
 var Beer = require('../models/beerModel');
 var User = require('../models/userModel');
 
-
-//Get stored information from database
+//Get stored information from database for one user
 router.get('/', function(req, res, next) {
   var username = req.user.username;
     User.findOne({username: username}, function (err, User) {
       res.json(req.user);
     });
+});
+
+//Get all bar names
+router.get('/names', function(req,res,next){
+  User.find({}, {barName: 1, _id:0}, function(err, User){
+    res.send(User);
+  });
 });
 
 //Get information for searched User
@@ -45,7 +50,7 @@ router.put('/addBeer/:id?', function(req, res, next) {
 });
 
 
-//Submit a rating for a certain beer
+//Submit a rating for a certain beer and get current avg. rating
 router.put('/rate/:id?', function(req, res, next) {
   var id = req.params.id;
   var newRating = req.body.rating;
@@ -65,9 +70,17 @@ router.put('/rate/:id?', function(req, res, next) {
         }
       }
     }
+    currentBeer.ratingTotal += newRating;
+    currentBeer.numOfRatings++;
+    var rating = getNewRating(currentBeer.ratingTotal, currentBeer.numOfRatings);
 
-    var rating = getNewRating(currentBeer.rating, newRating);
-    currentBeer.rating = parseInt(rating);
+    //Get new rating function
+    function getNewRating(ratingTotal, numRatings){
+      return (ratingTotal/numRatings).toFixed(2);
+    }
+
+    currentBeer.rating = rating;
+
     User.beerList.push(currentBeer);
 
     User.save(function(err){
@@ -117,14 +130,5 @@ router.get('/logout', function(req, res, next){
   res.send(200);
 });
 
-//Get new rating function
-function getNewRating(oldRate, newRate){
 
-  if(oldRate != 0) {
-    var rating = (oldRate + newRate) / 2;
-  } else {
-    rating = newRate;
-  }
-  return rating;
-}
 module.exports = router;

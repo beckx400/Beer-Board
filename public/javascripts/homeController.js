@@ -9,10 +9,18 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http, $ap
     vm.newRating = 0;
     vm.beerList = [];
 
+
+
+    $http.get("/users/names").then(function(response){
+        vm.choices = [];
+        for(var i = 0; i < response.data.length; i++) {
+            vm.choices.push(response.data[i].barName);
+        }
+    });
+
 //Customer search function
     vm.findBar = function() {
 //Get searched bar information
-        console.log('called');
         var searchedBar = vm.searchedBar;
         $http.get('/users/search/' + searchedBar).then(function(response) {
             vm.bar = response.data;
@@ -22,26 +30,27 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http, $ap
                 if(a.name > b.name) return 1;
                 return 0;
             });
-           vm.$apply();
         });
         vm.showContent = true;
     };
 
-    vm.expandView = function(){
-
-        vm.enlarge = true;
+//Clear current search and go to home
+    vm.newSearch = function(){
+        vm.showContent = false;
+        vm.searchedBar = '';
     };
-
 //Submit a rating
-    vm.submitRating = function(name, index){
-
+    vm.submitRating = function(name, index) {
         var newRating = vm.newRating[index];
-
-        var data = {rating: newRating, beerName: name};
-        $http.put('/users/rate/' + vm.bar._id, data).then(function(response){
-           vm.findBar();
-        });
-        vm.newRating[index] = 0;
-        vm.enlarge[index] = false;
+        if (newRating == undefined) {
+            return newRating;
+        } else {
+            var data = {rating: newRating, beerName: name};
+            $http.put('/users/rate/' + vm.bar._id, data).then(function (response) {
+                vm.findBar();
+            });
+            vm.newRating[index] = 0;
+            vm.enlarge[index] = false;
+        }
     }
 }]);

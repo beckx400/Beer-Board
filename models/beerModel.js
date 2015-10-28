@@ -11,14 +11,12 @@ var beerSchema = new Schema({
     abv:  Number,
     description:  String,
     image: String,
-    longStyle:  String,
-    shortStyle:  String,
-    srm: {
-        id: Number,
-        hex: Number
-    },
+    style:  String,
+    srm: Number,
     availablity: String,
-    rating: Number,
+    ratingTotal: Number,
+    numOfRatings: Number,
+    rating: Number
 });
 
 var Beer = mongoose.model('Beer', beerSchema);
