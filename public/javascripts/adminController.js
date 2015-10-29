@@ -1,7 +1,7 @@
 /**
  * Created by Dave on 10/21/15.
  */
-app.controller('AdminController', ['$scope', '$http', function($scope, $http, $mdDialog){
+app.controller('AdminController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
     
     var vm = this;
     
@@ -29,12 +29,12 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
         $http.get("/beer/search/" + beer).then(function(response){
             vm.beerChoice = [];
 
-            if(response.data.length < 10){
+            if(response.data.length < 6){
                 for(var i = 0; i < response.data.length; i++){
                     vm.beerChoice.push(response.data[i]);
                 }
             } else {
-                for(var i = 0; i < 10; i++) {
+                for(var i = 0; i < 6; i++) {
                     vm.beerChoice.push(response.data[i]);
                 }
             }
@@ -73,9 +73,8 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
         updateBeerList();
     };
 
-//Display Custom beer input form
+//Display Custom beer input form and hide bar info.
     vm.revealCustom = function(){
-        console.log('clicked');
         vm.customShow = true;
     };
 
@@ -114,14 +113,18 @@ app.controller('AdminController', ['$scope', '$http', function($scope, $http, $m
     }
 
 //Update User's info
-    vm.updateUserInfo = function(){
-        vm.updateInfo = !vm.updateInfo;
-    };
-
     vm.submitUserChanges = function(){
         vm.updateInfo = false;
         $http.put('/users/update/' + vm.bar._id, vm.bar).then(function(response){
-            console.log(response);
+            vm.successShow = true;
+            $timeout(function() {
+
+                // Loadind done here - Show message for 3 more seconds.
+                $timeout(function() {
+                    vm.successShow = false;
+                }, 3000);
+
+            }, 2000);
         });
     };
 

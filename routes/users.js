@@ -1,13 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
 var path = require('path');
 
-//Bringing in models for Beer and for newUser
+  ///////////////////////////////////////////////
+ //Bringing in models for Beer and for newUser//
+///////////////////////////////////////////////
 var Beer = require('../models/beerModel');
 var User = require('../models/userModel');
 
-//Get stored information from database for one user
+  /////////////////////////////////////////////////////
+ //Get stored information from database for one user//
+/////////////////////////////////////////////////////
 router.get('/', function(req, res, next) {
   var username = req.user.username;
     User.findOne({username: username}, function (err, User) {
@@ -15,14 +18,18 @@ router.get('/', function(req, res, next) {
     });
 });
 
-//Get all bar names
+  /////////////////////
+ //Get all bar names//
+/////////////////////
 router.get('/names', function(req,res,next){
   User.find({}, {barName: 1, _id:0}, function(err, User){
     res.send(User);
   });
 });
 
-//Get information for searched User
+  /////////////////////////////////////
+ //Get information for searched User//
+/////////////////////////////////////
 router.get('/search/:barName?', function(req, res, next) {
   var barName = req.params.barName;
 
@@ -31,7 +38,9 @@ router.get('/search/:barName?', function(req, res, next) {
     });
 });
 
-//Update the current beer list
+  ////////////////////////////////
+ //Update the current beer list//
+////////////////////////////////
 router.put('/addBeer/:id?', function(req, res, next) {
 
   var id = req.params.id;
@@ -49,8 +58,9 @@ router.put('/addBeer/:id?', function(req, res, next) {
   });
 });
 
-
-//Submit a rating for a certain beer and get current avg. rating
+  //////////////////////////////////////////////////////////////////
+ //Submit a rating for a certain beer and get current avg. rating//
+//////////////////////////////////////////////////////////////////
 router.put('/rate/:id?', function(req, res, next) {
   var id = req.params.id;
   var newRating = req.body.rating;
@@ -90,7 +100,9 @@ router.put('/rate/:id?', function(req, res, next) {
   });
 });
 
-//Update the User information
+  ///////////////////////////////
+ //Update the User information//
+///////////////////////////////
 router.put('/update/:id?', function(req, res, next) {
   var id = req.params.id;
   var bar = req.body;
@@ -114,7 +126,9 @@ router.put('/update/:id?', function(req, res, next) {
   });
 });
 
-//Drop a bar from the database
+  ////////////////////////////////
+ //Drop a bar from the database//
+////////////////////////////////
 router.delete('/delete/:id?', function(req, res, next) {
   var id = req.params.id;
 
@@ -124,7 +138,9 @@ router.delete('/delete/:id?', function(req, res, next) {
   });
 });
 
-//route to logout the current user
+  ////////////////////////////////////
+ //route to logout the current user//
+////////////////////////////////////
 router.get('/logout', function(req, res, next){
   req.logout();
   res.send(200);

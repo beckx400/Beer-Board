@@ -4,7 +4,7 @@ block content
    .adminContainer(ng-controller='AdminController as admin')
       .adminBar(ng-hide='admin.customShow')
          .adminBeerList
-            h2 {{admin.barName}}
+            h2 {{admin.bar.barName}}
             h3 MY BEER LIST
             .addBeer
                input(type='text' placeholder='Add A Beer' ng-model='admin.addBeer')
@@ -23,25 +23,27 @@ block content
          .barInfo
             h3 MY INFO
             .barUpdate
-               h3(editable-text="admin.bar.barName") {{admin.bar.barName}}
+               h3(editable-text="admin.bar.barName" ng-model="admin.bar.barName") {{admin.bar.barName}}
                ul
                   li(class="userInfo") Email:
-                  li(editable-text="admin.bar.email") {{admin.bar.email || 'empty'}}
+                  li(editable-text="admin.bar.email") {{admin.bar.email || 'Click to add.'}}
                   li(class="userInfo") Phone Number:
-                  li(editable-text="admin.bar.phoneNumber") {{admin.bar.phoneNumber}}
+                  li(editable-text="admin.bar.phoneNumber") {{admin.bar.phoneNumber || 'Click to add.'}}
                   li(class="userInfo") Street:
-                  li(editable-text="admin.bar.street") {{admin.bar.street}}
+                  li(editable-text="admin.bar.street") {{admin.bar.street || 'Click to add.'}}
                   li(class="userInfo") City:
-                  li(editable-text="admin.bar.city") {{admin.bar.city}}
+                  li(editable-text="admin.bar.city") {{admin.bar.city || 'Click to add.'}}
                   li(class="userInfo") State:
-                  li(editable-text="admin.bar.state") {{admin.bar.state}}
+                  li(editable-text="admin.bar.state") {{admin.bar.state || 'Click to add.'}}
                   li(class="userInfo") Zipcode:
-                  li(editable-text="admin.bar.zipcode") {{admin.bar.zipcode}}
+                  li(editable-text="admin.bar.zipcode") {{admin.bar.zipcode || 'Click to add.'}}
                   li(class="userInfo") Description:
-                  li(editable-text="admin.bar.description") {{admin.bar.description}}
+                  li(editable-text="admin.bar.description") {{admin.bar.description || 'Click to add.'}}
                .userControls
                   md-button(ng-click="admin.submitUserChanges()") SUBMIT CHANGES
                   a(ng-click="admin.deleteUser()" href='/home') Delete My Account
+                  p(ng-show='admin.successShow' class='fadein fadeout successMessage') Your account has been updated!
+      //Custom Beer form shows on Can't find what you're looking for button click
       .customBeerForm(ng-show='admin.customShow')
          md-content.createABeer(layout-padding)
             h1 ADD A CUSTOM BEER
@@ -69,7 +71,7 @@ block content
                md-input-container
                   input(type='text' placeholder="Availability" ng-model='admin.cusAvail')
                md-input-container
-                  textarea(type='text' placeholder="Description" ng-model='admin.cusDesc')
+                  input(type='text' placeholder="Description" ng-model='admin.cusDesc')
                md-input-container
                   input(type='text' placeholder="Add an image link" ng-model='admin.cusImg')
                md-button(ng-click='admin.submitCustomBeer()') TAP THE KEG

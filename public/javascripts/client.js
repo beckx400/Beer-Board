@@ -1,7 +1,7 @@
 /**
  * Created by Dave on 10/17/15.
  */
-var app = angular.module('beerBoardApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'xeditable']);
+var app = angular.module('beerBoardApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'xeditable', 'ngAnimate']);
 
 //Sets specific html view to load and sets an Angular controller to each page
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
@@ -13,11 +13,9 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         })
         .when('/about', {
             templateUrl: "/about"
-            //controller: "AboutController"
         })
         .when('/credits', {
             templateUrl: "/credits"
-            //controller: "CreditsController"
         })
         .when('/admin', {
             templateUrl: "/admin",
@@ -29,11 +27,6 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             controllerAs: 'register',
             controller: "RegisterController"
         })
-        .when('/success', {
-            templateUrl: "/success"
-            //controllerAs: 'success',
-            //controller: "SuccessController"
-        });
 
     $locationProvider.html5Mode(true);
 }]);

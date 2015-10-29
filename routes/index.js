@@ -3,6 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var path = require('path');
 
+  ////////////////////////////////////
+ ///      Render ng-views         ///
+////////////////////////////////////
 /* GET index page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Beer Board' });
@@ -27,8 +30,9 @@ router.get('/admin', function(req,res,next){
         res.send(401, 'Unauthorized');
 });
 
-
-//Login and authenticate user unless !user
+  ///////////////////////////////////////////////
+ ///Login and authenticate user unless !user////
+///////////////////////////////////////////////
 router.post('/login',function(req,res,next){
     passport.authenticate('local', function(err, user, info) {
         if (err) {
@@ -43,5 +47,6 @@ router.post('/login',function(req,res,next){
         });
     })(req, res, next);
 });
+
 
 module.exports = router;

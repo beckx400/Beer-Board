@@ -9,8 +9,6 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http, $ap
     vm.newRating = 0;
     vm.beerList = [];
 
-
-
     $http.get("/users/names").then(function(response){
         vm.choices = [];
         for(var i = 0; i < response.data.length; i++) {
@@ -24,7 +22,12 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http, $ap
         var searchedBar = vm.searchedBar;
         $http.get('/users/search/' + searchedBar).then(function(response) {
             vm.bar = response.data;
-            vm.barLocation = vm.bar.street + " " + vm.bar.city + ", " + vm.bar.state + " " + vm.bar.zipcode;
+            if(vm.bar.street && vm.bar.city && vm.bar.state && vm.bar.zipcode) {
+                vm.barLocation = vm.bar.street + " " + vm.bar.city + ", " + vm.bar.state + " " + vm.bar.zipcode;
+            }else{
+                vm.barLocation = "";
+            }
+            //Sort beer list to keep indicies consistent
             vm.beerList = response.data.beerList.sort(function(a, b){
                 if(a.name < b.name) return -1;
                 if(a.name > b.name) return 1;

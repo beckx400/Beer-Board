@@ -18,7 +18,7 @@ button{
   min-height: 100vh;
   flex-direction: column;
 }
-.main, .about{
+.main, .about {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -47,7 +47,6 @@ a:hover{
 .logoImg img{
   height: 50px;
   margin: 10px 0 0 20px;
-  float: left;
 }
 .logLink, #copyright, .userMenu {
   float: right;
@@ -62,7 +61,7 @@ a:hover{
 .loginContent a, .userMenuContent a {
   color: black;
 }
-.loginContent a:hover, .userMenuContent a:hover{
+.loginContent a:hover, .userMenuContent a:hover , .successMessage{
   color: #FDDD0B;
 }
 .userMenuContent, .loginContent{
@@ -80,7 +79,10 @@ a:hover{
 .myBar{
   border-bottom: 1px solid black;
 }
-
+.errorMessage{
+  position: absolute;
+  float: right;
+}
 /*Footer styles*/
 .footer{
   height: 70px;
@@ -88,7 +90,6 @@ a:hover{
 }
 .footerLink, #copyright {
   position: relative;
-  display: inline;
   top: 20px;
   margin: 0 10px;
 }
@@ -105,12 +106,9 @@ a:hover{
   color: #FDDD0B;
   font-family: 'Oswald', sans-serif;
   margin: 20px;
-  padding-bottom: 0;
   transition: all 0.3s ease;
 }
 .logo:hover{
-  border-bottom: 4px solid #FDDD0B;
-  border-top: 4px solid #FDDD0B;
   text-shadow: 3px 3px 3px hsla(360, 100%, 100%, 0.2);
 }
 .searchBar{
@@ -120,9 +118,8 @@ a:hover{
 }
 .searchSubmit {
   color: #FDDD0B;
-  margin: 0 auto;
+  margin: 5px auto 0;
   display: block;
-  margin-top: 5px;
 }
 .ratingInput{
   background: transparent;
@@ -139,7 +136,7 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
 /*Customer View*/
 .barName {
   color: #FDDD0B;
-  font-size: 40px;
+  font-size: 4em;
   margin-bottom: 5px;
 }
 .beerListTitle {
@@ -162,22 +159,28 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
   padding-bottom: 2px;
 }
 .customerBeer{
-  border: 1px solid antiquewhite;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   background-color: hsla(0, 7%, 8%, 0.45);
   border-radius: 4px;
   text-align: left;
   padding-left: 5px;
   position: relative;
 }
+.customerBeer img{
+  height: 120px;
+  width: auto;
+  float: right;
+}
+.customerBeer p {
+  text-transform: uppercase;
+}
 .beerName{
   color: #FDDD0B;
   font-size: 1.25em;
   margin: 4px 0;
 }
-.customerBeer img{
-  height: 120px;
-  width: auto;
-  float: right;
+.barLocation{
+  margin: 0;
 }
 .statsList{
   margin: 0;
@@ -186,15 +189,16 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 0;
-  padding: 0;
+}
+.expandedView{
+  overflow: hidden;
 }
 /*About styles*/
 .aboutContainer{
-  width: 50%;
+  width: 70%;
   padding: 5px;
   background-color: hsla(0, 7%, 8%, 0.5);
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 5px;
 }
 .aboutTitle {
@@ -210,7 +214,7 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
 .adminBar{
   text-align: center;
 }
-.adminBar h2{
+.adminBeerList h2{
   font-size: 2.5em;
   color: #FDDD0B;
   margin-bottom: 5px;
@@ -221,19 +225,15 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
   border-radius: 5px;
 }
 .beer, .customBeerA{
-  border: 1px solid white;
-  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 4px;
   background-color: hsla(0, 7%, 8%, 0.5);
 }
 .beer p {
   display: inline;
-  text-transform: uppercase;
-  margin-bottom: 0;
 }
 .removeButton{
-  color: #b3280d !important;
-  font-weight: bold;
+  color: #b3280d;
 }
 .adminBeerList{
   float:left;
@@ -245,7 +245,6 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
   border-left: 1px solid white;
   text-align: left;
   padding-left: 10px;
-  margin-bottom: 15px;
 }
 .userInfo{
   font-size: 1.125em;
@@ -287,11 +286,9 @@ md-input-container .md-input{
   border-color: rgba(254,253,103,0.82);
   color: antiquewhite;
 }
-md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+md-input-container:not(.md-input-invalid).md-input-focused .md-input, md-input-container label {
   border-color: antiquewhite;
-}
-md-input-container label {
-  color: antiquewhite;
+  color: white;
 }
 .md-input-focused label {
   color: #FDDD0B;
@@ -300,6 +297,11 @@ md-input-container label {
 /*------------------------------
       Media Queries
 --------------------------------*/
+@media screen and (min-width: 1080px){
+  .searchBar{
+    width: 760px;
+  }
+}
 @media screen and (max-width: 850px) {
   body{
     font-size: 70%;
@@ -346,3 +348,24 @@ md-input-container label {
     width: auto;
   }
 }
+
+.fadein.ng-hide-remove,
+.fadeout.ng-hide-add {
+  -webkit-transition: 400ms ease-in-out all;
+  -moz-transition: 400ms ease-in-out all;
+  -o-transition: 400ms ease-in-out all;
+  transition: 400ms ease-in-out all;
+  display: block !important;
+}
+
+.fadein.ng-hide-remove,
+.fadeout.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+
+.fadeout.ng-hide-add,
+.fadein.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
+
+span.clear { clear: left; display: block; }

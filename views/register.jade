@@ -6,44 +6,54 @@ block content
           h2.headTitle WELCOME TO BEER BOARD!
           form(name='registerForm' action="/register" method='POST')
                 md-input-container
-                   input(required name="username" id="username" placeholder="Username" ng-model='register.username')
+                   label Username
+                   input(required="" name="username" id="username" ng-model='register.username')
                    div(ng-messages='registerForm.username.$error')
-                      div(ng-messages='required') Required.
+                      div(ng-messages="required") Required.
 
                 md-input-container
-                   input(type='password' required name='password' id='password' placeholder="Password" ng-model='register.password')
+                   label Password
+                   input(type='password' required name='password' id='password' ng-model='register.password')
                    div(ng-messages='registerForm.password.$error')
                       div(ng-messages='required') Required.
 
                 md-input-container
-                   input(type='text' required name='barName' id='barName' placeholder="Bar Name")
+                   label Bar Name
+                   input(type='text' required name='barName' id='barName')
                    div(ng-messages='registerForm.barName.$error')
                       div(ng-messages='required') Required.
 
                 .emailPhone(layout layout-sm="column")
                    md-input-container(flex)
-                      input(type='text' required name='email' id='email' placeholder="Email")
+                      label Email
+                      input(type='text' required name='email' id='email')
                       div(ng-messages='registerForm.email.$error')
                          div(ng-messages='required') Required.
 
                    md-input-container(flex)
-                      input(type='text' id='phoneNumber' name='phoneNumber' placeholder="Phone (555)555-5555")
+                      label Phone (555)555-5555
+                      input(type='text' id='phoneNumber' name='phoneNumber')
 
                 md-input-container(flex)
-                   input(type='text'  name='street' placeholder="Street" id='street')
+                   label Street Address
+                   input(type='text'  name='street' id='street')
 
                 .location(layout layout-sm="column")
                    md-input-container(flex)
-                      input(type='text'  name='city' placeholder="City" id='city')
+                      label City
+                      input(type='text'  name='city' id='city')
 
                    md-input-container(flex)
-                      input(type='text'  name='state' placeholder="Abbreviated State" id='state')
+                      label Abbreviated State
+                      input(type='text'  name='state' id='state')
 
                    md-input-container(flex)
-                      input(type='number' name='zipcode' placeholder="Zipcode(55555)" id='zipcode')
+                      label Zipcode(55555)
+                      input(type='number' name='zipcode' id='zipcode')
 
                 md-input-container(flex)
-                   input(type='text'  name='description' placeholder="Bar Description" id='description')
+                   label Bar Description
+                   input(type='text'  name='description' id='description')
 
                 div
                    md-button(ng-click="register.successMessage()") SUBMIT
