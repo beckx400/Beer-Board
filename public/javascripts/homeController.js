@@ -52,7 +52,6 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http, $ap
             $http.put('/users/rate/' + vm.bar._id, data).then(function (response) {
                 vm.findBar();
             });
-            vm.newRating[index] = 0;
             vm.enlarge[index] = false;
         }
     }

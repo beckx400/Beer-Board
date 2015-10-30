@@ -170,6 +170,7 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
   height: 120px;
   width: auto;
   float: right;
+  margin-right: 1%;
 }
 .customerBeer p {
   text-transform: uppercase;
@@ -209,10 +210,14 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
 }
 /* User View Styles*/
 .adminContainer{
-  width: 90%;
+  width: 100%;
+  align-self: stretch;
+  display: flex;
 }
 .adminBar{
   text-align: center;
+  display: flex;
+  width: 100%;
 }
 .adminBeerList h2{
   font-size: 2.5em;
@@ -236,15 +241,21 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
   color: #b3280d;
 }
 .adminBeerList{
-  float:left;
-  width: 79%;
+  flex: 6 1 auto;
+  margin: 0 10%;
 }
 .barInfo{
-  float: right;
-  width: 19%;
-  border-left: 1px solid white;
+  border-right: 1px solid white;
   text-align: left;
-  padding-left: 10px;
+  flex: 1 1 auto;
+  padding: 10px 10px 0 15px;
+  background-color: rgba(158, 158, 158, 0.42);
+}
+.barUpdate h3{
+  text-align: center;
+ }
+.barInfo a{
+  display: block;
 }
 .userInfo{
   font-size: 1.125em;
@@ -253,7 +264,7 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
   letter-spacing: 3px;
   margin-bottom: 3px;
 }
-.barUpdate h3, .barUpdate li:nth-child(even){
+.barUpdate li:nth-child(even){
   cursor: pointer;
 }
 .userControls{
@@ -273,7 +284,12 @@ md-slider .md-track.md-track-fill, .md-thumb:after, .md-thumb-container {
 .editable-buttons button:hover{
   background-color: hsla(0, 0%, 87%, 0.2);
 }
-
+.customBeerForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
 /*Register Styles*/
 .registerContent, .createABeeer{
   width: 65%;
@@ -317,35 +333,34 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input, md-input-c
     font-size: 40%;
   }
 }
-@media screen and (max-width: 385px) {
-  body{
-    font-size: 30%;
+@media screen and (max-width: 400px) {
+  .adminBar{
+    flex-direction: column;
   }
   .logoImg{
     height: 10px;
   }
-  .fa-bars{
-    font-size: 2em;
-  }
   .adminBeerList, .barInfo{
-    float: none;
     margin: 0 auto;
     border: none;
+    flex: 0 1 auto;
     width: 100%;
   }
   .adminBeerList{
     margin-right: 0;
+    overflow-y:hidden;
   }
   .barInfo{
-    padding: 0;
     text-align: center;
-  }
-  .md-button{
-    font-size: 50%;
+    order: 1;
+    padding-bottom: 5px;
   }
   .customerBeer img{
     height: 40px;
     width: auto;
+  }
+  .myBar, .logLink{
+    font-size: 200%;
   }
 }
 
@@ -367,5 +382,3 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input, md-input-c
 .fadein.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
 }
-
-span.clear { clear: left; display: block; }

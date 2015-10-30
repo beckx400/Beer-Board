@@ -3,26 +3,10 @@
 block content
    .adminContainer(ng-controller='AdminController as admin')
       .adminBar(ng-hide='admin.customShow')
-         .adminBeerList
-            h2 {{admin.bar.barName}}
-            h3 MY BEER LIST
-            .addBeer
-               input(type='text' placeholder='Add A Beer' ng-model='admin.addBeer')
-               md-button(ng-click='admin.getBeer()') SEARCH
-            .returnBeers(ng-repeat="beer in admin.beerChoice track by $index")
-               .choiceList
-                  .beer
-                     ul
-                        li(ng-click="admin.addNewBeer(beer)") {{beer.breweries[0].name}} {{beer.name}}
-
-            md-button(ng-show='admin.addCustom' ng-click='admin.revealCustom()') CAN'T FIND WHAT YOU'RE LOOKING FOR?
-            .beerList(ng-repeat="beer in admin.beerList")
-               .beer
-                  p {{beer.brewery}} {{beer.name}}
-                  md-button(class='removeButton' ng-click="admin.deleteBeer($index)") REMOVE
          .barInfo
-            h3 MY INFO
             .barUpdate
+               h3 MY INFO
+               md-tooltip(md-visible="admin.showTooltip") Click a field to edit!
                h3(editable-text="admin.bar.barName" ng-model="admin.bar.barName") {{admin.bar.barName}}
                ul
                   li(class="userInfo") Email:
@@ -41,13 +25,30 @@ block content
                   li(editable-text="admin.bar.description") {{admin.bar.description || 'Click to add.'}}
                .userControls
                   md-button(ng-click="admin.submitUserChanges()") SUBMIT CHANGES
-                  a(ng-click="admin.deleteUser()" href='/home') Delete My Account
+                  a(ng-click="admin.deleteUser()" href='/') Delete My Account
                   p(ng-show='admin.successShow' class='fadein fadeout successMessage') Your account has been updated!
+         .adminBeerList
+            h2 {{admin.bar.barName}}
+            h3 MY BEER LIST
+            .addBeer
+               input(type='text' placeholder='Add A Beer' ng-model='admin.addBeer')
+               md-button(ng-click='admin.getBeer()') SEARCH
+            .returnBeers(ng-repeat="beer in admin.beerChoice track by $index")
+               .choiceList
+                  .beer
+                     ul
+                        li(ng-click="admin.addNewBeer(beer)") {{beer.breweries[0].name}} {{beer.name}}
+
+            md-button(ng-show='admin.addCustom' ng-click='admin.revealCustom()') CAN'T FIND WHAT YOU'RE LOOKING FOR?
+            .beerList(ng-repeat="beer in admin.beerList")
+               .beer
+                  p {{beer.brewery}} {{beer.name}}
+                  md-button(class='removeButton' ng-click="admin.deleteBeer($index)") REMOVE
       //Custom Beer form shows on Can't find what you're looking for button click
       .customBeerForm(ng-show='admin.customShow')
          md-content.createABeer(layout-padding)
-            h1 ADD A CUSTOM BEER
             form(name='customForm')
+               h1 ADD A CUSTOM BEER
                .customNaming(layout layout-sm="column")
                   md-input-container(flex)
                      input(name='brewery' placeholder="Brewery" ng-model='admin.cusBrewery')
@@ -75,6 +76,7 @@ block content
                md-input-container
                   input(type='text' placeholder="Add an image link" ng-model='admin.cusImg')
                md-button(ng-click='admin.submitCustomBeer()') TAP THE KEG
+               md-button(ng-click='admin.customCancel()') CANCEL
 
 
 

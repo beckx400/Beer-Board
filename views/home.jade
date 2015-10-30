@@ -25,7 +25,7 @@ block content
             div(class='ratingContainer' layout)
                p(flex='20') RATE THIS BEER
                md-slider(flex='70' min="0" max='10' ng-model='home.newRating[$index]' id='rating-slider' ng-click="home.enlarge[$index] = false" aria-label)
-               input(flex class='ratingInput' placeholder='0' type='number' ng-model='home.newRating[$index]' aria-controls='rating-slider')
+               input(flex class='ratingInput' placeholder='0' min='0' max='10' type='number' ng-model='home.newRating[$index]' aria-controls='rating-slider')
             div(class='ratingButtons')
                md-button(ng-click="home.submitRating(beer.name, $index)") SUBMIT RATING
                md-button(ng-click="home.enlarge[$index] = !home.enlarge[$index]") MORE INFO.

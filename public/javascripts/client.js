@@ -19,12 +19,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         })
         .when('/admin', {
             templateUrl: "/admin",
-            controllerAs: 'admin',
             controller: "AdminController"
         })
         .when('/register', {
             templateUrl: "/register",
-            controllerAs: 'register',
             controller: "RegisterController"
         })
 

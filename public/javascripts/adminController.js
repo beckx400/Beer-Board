@@ -78,6 +78,10 @@ app.controller('AdminController', ['$scope', '$http', '$timeout', function($scop
         vm.customShow = true;
     };
 
+    vm.customCancel = function(){
+        vm.customShow = false;
+        vm.beerChoice = [];
+    }
 //Add a custom beer from form
     vm.submitCustomBeer = function(){
         vm.customShow = false;
@@ -138,4 +142,12 @@ app.controller('AdminController', ['$scope', '$http', '$timeout', function($scop
             });
         }
     }
+
+    vm.showTooltip = false;
+    $scope.$watch(function(val) {
+        if (val && val.length ) {
+            vm.showTooltip = true;
+        }
+    })
+
 }]);
