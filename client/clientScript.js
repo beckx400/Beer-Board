@@ -134,6 +134,7 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http, $ap
                 vm.findBar();
             });
             vm.enlarge[index] = false;
+            vm.newRating[index] = 0;
         }
     }
 }]);
